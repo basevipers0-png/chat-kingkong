@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { background-color: #008080; padding: 20px; font-family: 'MS Sans Serif', Geneva, sans-serif; }
+        
+        .window-container {
+            width: 100%;
+            max-width: 750px;
+            background: #c0c0c0;
+            border: 3px solid;
+            border-color: #fff #404040 #404040 #fff;
+            padding: 5px;
+            margin: auto;
+        }
+
+        .title-bar {
+            background: linear-gradient(90deg, #000080, #1084d0);
+            color: white;
+            padding: 4px 8px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .status-bar {
+            background: #c0c0c0;
+            border: 2px inset #fff;
+            padding: 5px 10px;
+            margin-top: 5px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            color: #000;
+        }
+
+        /* Pantalla negra estilo terminal retro para las charlas simuladas */
+        .simulated-chat-box {
+            background: #000000;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            border: 2px inset #808080;
+            padding: 10px;
+            height: 140px;
+            overflow-y: auto;
+            margin-top: 5px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .chat-line {
+            margin-bottom: 4px;
+        }
+
+        .content-area {
+            padding: 15px;
+            background: #ffffff;
+            border: 2px inset #808080;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="window-container">
+    <!-- Barra de título retro -->
+    <div class="title-bar">
+        <span>🛰️ VentaniYA_BBS_MdP_1979.exe</span>
+        <span>[_][O][X]</span>
+    </div>
+    
+    <!-- Panel de estado (Reloj al milisegundo y Conectados) -->
+    <div class="status-bar">
+        <span id="live-clock">🕒 Reloj: --:--:--.000</span>
+        <span id="live-users">🟢 Conectados: 1,042</span>
+    </div>
+
+    <!-- Pantalla de charlas automáticas sobre leyendas urbanas y el tiempo -->
+    <div class="simulated-chat-box" id="terminal-chat">
+        <div class="chat-line">[SISTEMA] Conectando con Nodo Mar del Plata - Frecuencia 1979...</div>
+    </div>
+
+    <!-- Área principal donde interactúa el público real -->
+    <div class="content-area">
+        <h3 style="margin-top:0; color: #000080;">💬 Foro Público Abierto</h3>
+        <p style="font-size: 13px; color: #333;">Deja tu mensaje, tu teoría o tu recuerdo sobre la costa:</p>
+        
+        <!-- Motor de comentarios reales -->
+        <script src="https://utteranc.es/client.js"
+                repo="basevipers0-png/comentarios-chat-"
+                issue-term="pathname"
+                theme="github-light"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
+</div>
+
+<script>
+    // Reloj dinámico con precisión al milisegundo
+    function updateClock() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const milliseconds = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, '0');
+        document.getElementById('live-clock').innerText = `🕒 ${hours}:${minutes}:${seconds}.${milliseconds}`;
+    }
+    setInterval(updateClock, 50); // Actualiza rápido para ver el milisegundo corriendo
+
+    // Simulador dinámico de usuarios conectados
+    function fluctuateUsers() {
+        const baseUsers = 1038;
+        const variation = Math.floor(Math.random() * 21) - 10;
+        document.getElementById('live-users').innerText = `🟢 Conectados: ${baseUsers + variation}`;
+    }
+    setInterval(fluctuateUsers, 4000);
+
+    // Lista de charlas automáticas sobre King Kong en el '79, el tiempo y leyendas de MdP
+    const retroMessages = [
+        "&gt; [Mono_Gervasio]: Che, ¿alguien se acuerda del operativo secreto cuando King Kong desapareció en la Bristol en el '79?",
+        "&gt; [El_Ruso_MdP]: ¡Mal! Dicen que se metió en las grutas de los lobos marinos y el ejército no supo qué hacer con la marea alta.",
+        "&gt; [Cronopio77]: ⏱️ Ojo al dato: medido al milisegundo, el rugido se escuchó desde Cabo Corrientes hasta Playa Grande en exactamente 4.280ms.",
+        "&gt; [Bety_La_Negra]: ¿King Kong? ¡A mi abuelo le robaron los churros en el muelle y decían que había sido un bicho gigante con gabardina!",
+        "&gt; [Terminal_99]: El clima en Mar del Plata en ese invierno del '79 estaba rarísimo, mucha neblina y anomalías temporales en la escollera.",
+        "&gt; [Mono_Gervasio]: Jajaja tal cual, y sincronizado con el reloj atómico, la desaparición exacta ocurrió a las 03:14:12 AM.",
+        "&gt; [El_Ruso_MdP]: Si prestas atención al murmullo del viento sur, todavía parece que se escucha caminar a la mole por Constitución."
+    ];
+
+    let msgIndex = 0;
+    function addSimulatedMessage() {
+        const chatBox = document.getElementById('terminal-chat');
+        const div = document.createElement('div');
+        div.className = 'chat-line';
+        div.innerHTML = retroMessages[msgIndex];
+        chatBox.appendChild(div);
+        
+        // Mantener el scroll abajo
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        msgIndex = (msgIndex + 1) % retroMessages.length;
+    }
+
+    // Cada 4 segundos tira una charla nueva en la pantalla negra
+    setInterval(addSimulatedMessage, 4500);
+</script>
+
+</body>
+</html>
