@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <title>Chat Retro - King Kong Mar del Plata 1979</title>
     <style>
         body { background-color: #008080; padding: 20px; font-family: 'MS Sans Serif', Geneva, sans-serif; }
         
@@ -87,9 +88,9 @@
         <h3 style="margin-top:0; color: #000080;">💬 Foro Público Abierto</h3>
         <p style="font-size: 13px; color: #333;">Deja tu mensaje, tu teoría o tu recuerdo sobre la costa:</p>
         
-        <!-- Motor de comentarios reales -->
+        <!-- Motor de comentarios reales vinculado a tu nuevo repo -->
         <script src="https://utteranc.es/client.js"
-                repo="basevipers0-png/comentarios-chat-"
+                repo="basevipers0-png/chat-kingkong"
                 issue-term="pathname"
                 theme="github-light"
                 crossorigin="anonymous"
@@ -108,7 +109,7 @@
         const milliseconds = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, '0');
         document.getElementById('live-clock').innerText = `🕒 ${hours}:${minutes}:${seconds}.${milliseconds}`;
     }
-    setInterval(updateClock, 50); // Actualiza rápido para ver el milisegundo corriendo
+    setInterval(updateClock, 50);
 
     // Simulador dinámico de usuarios conectados
     function fluctuateUsers() {
@@ -137,13 +138,10 @@
         div.innerHTML = retroMessages[msgIndex];
         chatBox.appendChild(div);
         
-        // Mantener el scroll abajo
         chatBox.scrollTop = chatBox.scrollHeight;
-
         msgIndex = (msgIndex + 1) % retroMessages.length;
     }
 
-    // Cada 4 segundos tira una charla nueva en la pantalla negra
     setInterval(addSimulatedMessage, 4500);
 </script>
 
